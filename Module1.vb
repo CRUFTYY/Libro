@@ -1,12 +1,6 @@
 ﻿Module Module1
-    Dim libro As Libro
+    Dim libros() As Libro ' El array puede crecer dinámicamente.
 
-    Dim titulo As String
-    Dim autor As String
-    Dim anio As Integer
-    Dim paginas As Integer
-
-    Dim libros(-1) As Libro
     Sub Main()
         Dim opcion As Integer
 
@@ -22,19 +16,16 @@
             Select Case opcion
                 Case 1
                     CrearLibro()
-                    Console.WriteLine($"{libro.Datos()}")
-
-                    ReDim Preserve libros(libros.Length)
                     libros(libros.Length - 1) = New Libro(titulo, autor, anio, paginas)
-
                     For i As Integer = 0 To (libros.Length - 1)
                         Console.WriteLine(libros(i).Datos())
                     Next
+
                     Console.ReadKey()
                     Console.Clear()
+
                 Case 2
                     ModificarLibro()
-                    Console.WriteLine($"{libro.Datos()}")
 
                 Case 0
                     Console.WriteLine("Saliendo...")
@@ -44,59 +35,59 @@
             Console.WriteLine()
         Loop While opcion <> 0
     End Sub
+
     Public Sub CrearLibro()
-        Console.WriteLine("")
+        Dim titulo As String
+        Dim autor As String
+        Dim anio As Integer
+        Dim paginas As Integer
 
         Console.Write("Titulo: ")
-        libros(libros.Length - 1).GetTitulo = Console.ReadLine()
-
-        Console.WriteLine("")
+        titulo = Console.ReadLine()
 
         Console.Write("Autor: ")
-        libros(libros.Length - 1).GetAutor = Console.ReadLine()
-
-        Console.WriteLine("")
+        autor = Console.ReadLine()
 
         Console.Write("Año de lanzamiento: ")
-        libros(libros.Length - 1).GetAnio = Integer.Parse(Console.ReadLine())
+        anio = Integer.Parse(Console.ReadLine())
 
-        Console.WriteLine("")
+        Console.Write("Cantidad de paginas: ")
+        paginas = Integer.Parse(Console.ReadLine())
 
-        Console.Write("Cantidad de paginas ")
-        libros(libros.Length - 1).GetPaginas = Integer.Parse(Console.ReadLine())
+        ' Redimensionar el array y agregar el nuevo libro.
+        ReDim Preserve libros(libros.Length)
     End Sub
 
     Public Sub ModificarLibro()
+        ' Mostrar los libros actuales.
         For i As Integer = 0 To (libros.Length - 1)
-            Console.WriteLine(libros(i).Datos())
+            Console.WriteLine($"{i + 1}. {libros(i).Datos()}")
         Next
 
+        ' Solicitar cuál libro modificar.
+        Console.WriteLine("Ingrese el número del libro a modificar:")
+        Dim indice As Integer = Integer.Parse(Console.ReadLine()) - 1
 
-        Console.WriteLine("Ingrese libro a modificar")
-        Dim opcion As Integer = Integer.Parse(Console.ReadLine())
-        Console.Write("")
+        If indice >= 0 And indice < libros.Length Then
+            ' Modificar los datos del libro seleccionado.
+            Console.Write("Nuevo Título: ")
+            libros(indice).GetTitulo = Console.ReadLine()
 
+            Console.Write("Nuevo Autor: ")
+            libros(indice).GetAutor = Console.ReadLine()
 
-        Console.Write("Titulo: ")
-        libros(opcion.Length - 1).GetTitulo = Console.ReadLine()
+            Console.Write("Nuevo Año de lanzamiento: ")
+            libros(indice).GetAnio = Integer.Parse(Console.ReadLine())
 
-        Console.WriteLine("")
+            Console.Write("Nueva Cantidad de páginas: ")
+            libros(indice).GetPaginas = Integer.Parse(Console.ReadLine())
 
-        Console.Write("Autor: ")
-        libros(opcion.Length - 1).GetAutor = Console.ReadLine()
-
-        Console.WriteLine("")
-
-        Console.Write("Año de lanzamiento: ")
-        libros(opcion.Length - 1).GetAnio = Integer.Parse(Console.ReadLine())
-
-        Console.WriteLine("")
-
-        Console.Write("Cantidad de paginas ")
-        libros(opcion - 1).GetPaginas = Integer.Parse(Console.ReadLine())
+            Console.WriteLine("Libro modificado con éxito.")
+        Else
+            Console.WriteLine("Índice no válido.")
+        End If
 
         Console.ReadKey()
         Console.Clear()
     End Sub
-
 End Module
