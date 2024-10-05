@@ -1,5 +1,5 @@
 ﻿Module Module1
-    Dim libros() As Libro ' El array puede crecer dinámicamente.
+    Dim libros(-1) As Libro ' El array puede crecer dinámicamente.
 
     Sub Main()
         Dim opcion As Integer
@@ -16,7 +16,7 @@
             Select Case opcion
                 Case 1
                     CrearLibro()
-                    libros(libros.Length - 1) = New Libro(titulo, autor, anio, paginas)
+
                     For i As Integer = 0 To (libros.Length - 1)
                         Console.WriteLine(libros(i).Datos())
                     Next
@@ -55,7 +55,8 @@
         paginas = Integer.Parse(Console.ReadLine())
 
         ' Redimensionar el array y agregar el nuevo libro.
-        ReDim Preserve libros(libros.Length)
+        ReDim Preserve libros(libros.Length - 1)
+        libros(libros.Length - 1) = New Libro(titulo, autor, anio, paginas)
     End Sub
 
     Public Sub ModificarLibro()
