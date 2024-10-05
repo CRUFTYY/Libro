@@ -1,5 +1,5 @@
 ﻿Module Module1
-    Dim libros(-1) As Libro ' El array puede crecer dinámicamente.
+    Dim libros() As Libro = {}
 
     Sub Main()
         Dim opcion As Integer
@@ -20,7 +20,6 @@
                     For i As Integer = 0 To (libros.Length - 1)
                         Console.WriteLine(libros(i).Datos())
                     Next
-
                     Console.ReadKey()
                     Console.Clear()
 
@@ -54,8 +53,8 @@
         Console.Write("Cantidad de paginas: ")
         paginas = Integer.Parse(Console.ReadLine())
 
-        ' Redimensionar el array y agregar el nuevo libro.
-        ReDim Preserve libros(libros.Length - 1)
+        ' Agranda array y agregar el nuevo libro.
+        ReDim Preserve libros(libros.Length)
         libros(libros.Length - 1) = New Libro(titulo, autor, anio, paginas)
     End Sub
 
@@ -65,12 +64,10 @@
             Console.WriteLine($"{i + 1}. {libros(i).Datos()}")
         Next
 
-        ' Solicitar cuál libro modificar.
         Console.WriteLine("Ingrese el número del libro a modificar:")
         Dim indice As Integer = Integer.Parse(Console.ReadLine()) - 1
 
         If indice >= 0 And indice < libros.Length Then
-            ' Modificar los datos del libro seleccionado.
             Console.Write("Nuevo Título: ")
             libros(indice).GetTitulo = Console.ReadLine()
 
