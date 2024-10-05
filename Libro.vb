@@ -1,12 +1,12 @@
 ﻿Public Class Libro
-    Private Shared NewId As Integer = 1000
+    Private Shared NewId As Integer = 1000 ' Inicia en 1000
     Private id As Integer
     Private titulo As String
     Private autor As String
     Private anio As Integer
     Private paginas As Integer
 
-
+    ' Propiedades
     Public Property GetTitulo As String
         Get
             Return titulo
@@ -43,18 +43,18 @@
         End Set
     End Property
 
+    ' Constructor
     Public Sub New(titulo_ As String, autor_ As String, anio_ As Integer, paginas_ As Integer)
-        id = NewId
+        Me.id = NewId   ' Asigna el ID actual
+        NewId += 10     ' Incrementa para el próximo libro
         Me.titulo = titulo_
         Me.autor = autor_
         Me.anio = anio_
         Me.paginas = paginas_
-        id += 10
     End Sub
 
+    ' Método para obtener los datos del libro
     Public Function Datos() As String
-        Datos = $"ID: {id}, titulo: {GetTitulo}, autor: {GetAutor}, Año: {GetAnio}, Paginas: {GetPaginas}"
-        Return Datos
+        Return $"ID: {id}, Titulo: {GetTitulo}, Autor: {GetAutor}, Año: {GetAnio}, Páginas: {GetPaginas}"
     End Function
-
 End Class
