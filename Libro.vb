@@ -6,6 +6,20 @@
     Private anio As Integer
     Private paginas As Integer
 
+    ' Constructor sin parámetros para deserialización
+    Public Sub New()
+    End Sub
+
+    ' Constructor con parámetros
+    Public Sub New(titulo As String, autor As String, anio As Integer, paginas As Integer)
+        Me.id = NewId
+        NewId += 10
+        Me.GetTitulo = titulo
+        Me.GetAutor = autor
+        Me.GetAnio = anio
+        Me.GetPaginas = paginas
+    End Sub
+
     ' Getters y Setters
     Public Property GetTitulo As String
         Get
@@ -39,20 +53,13 @@
             Return paginas
         End Get
         Set(value As Integer)
-            If value > 0 Then paginas = value Else paginas = 1
+            If value > 0 Then
+                paginas = value
+            Else
+                paginas = 1
+            End If
         End Set
     End Property
-
-    ' Constructor
-    Public Sub New(titulo As String, autor As String, anio As Integer, paginas As Integer)
-        Me.id = NewId ' Asignar el ID actual
-        NewId += 10
-        Me.GetTitulo = titulo
-        Me.GetAutor = autor
-        Me.GetAnio = anio
-        Me.GetPaginas = paginas
-    End Sub
-
 
     ' Método para obtener los detalles del libro
     Public Function Datos() As String
