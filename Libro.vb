@@ -44,13 +44,13 @@
     End Property
 
     ' Constructor
-    Public Sub New(titulo_ As String, autor_ As String, anio_ As Integer, paginas_ As Integer)
-        Me.id = NewId   ' Asigna el ID actual
+    Public Sub New(id As Integer, titulo_ As String, autor_ As String, anio_ As Integer, paginas_ As Integer)
+        id = NewId   ' Asigna el ID actual
         NewId += 10     ' Incrementa para el próximo libro
-        Me.titulo = titulo_
-        Me.autor = autor_
-        Me.anio = anio_
-        Me.paginas = paginas_
+        titulo = titulo_
+        autor = autor_
+        anio = anio_
+        paginas = paginas_
     End Sub
 
     ' Método para obtener los datos del libro
